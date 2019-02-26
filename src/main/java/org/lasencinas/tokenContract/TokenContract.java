@@ -57,9 +57,7 @@ public class TokenContract {
     }
 
     public void addOwner(PublicKey PK, double units) {
-        if (getBalances().isEmpty()) {
-            getBalances().put(PK, units);
-        }
+        getBalances().putIfAbsent(PK, units);
     }
 
     public double totalSupply() {
