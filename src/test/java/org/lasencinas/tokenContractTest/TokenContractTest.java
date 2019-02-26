@@ -77,6 +77,15 @@ public class TokenContractTest {
         assertEquals(1, token.balanceOf(jen.getPK()), 0);
     }
 
+    @Test
+    public void totalTokenSoldTest() {
+        token.transfer(morty.getPK(), 30);
+        assertEquals(30, token.totalTokensSold());
+
+        token.transfer(jen.getPK(), 25);
+        assertEquals(55, token.totalTokensSold());
+    }
+
 //    @Test
 //    public void payable_test() {
 //
