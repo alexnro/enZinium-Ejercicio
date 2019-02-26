@@ -11,6 +11,7 @@ public class TokenContractTest {
 
     Address rick = null;
     Address morty = null;
+    Address jen = null;
     TokenContract token = null;
 
     @Before
@@ -19,6 +20,8 @@ public class TokenContractTest {
         rick.generateKeyPair();
         morty = new Address();
         morty.generateKeyPair();
+        jen = new Address();
+        jen.generateKeyPair();
         token = new TokenContract(rick);
     }
 
@@ -68,6 +71,10 @@ public class TokenContractTest {
 
         assertEquals(98, token.balanceOf(rick.getPK()), 0);
         assertEquals(2, token.balanceOf(morty.getPK()), 0);
+        //Tests sobrecarga en transfer
+        token.transfer(morty.getPK(), jen.getPK(), 1);
+        assertEquals(1, token.balanceOf(jen.getPK()), 0);
+        assertEquals(1, token.balanceOf(jen.getPK()), 0);
     }
 
 //    @Test
