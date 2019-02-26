@@ -2,6 +2,7 @@ package org.lasencinas.tokenContract;
 
 import org.lasencinas.address.Address;
 
+import java.lang.reflect.Executable;
 import java.security.PublicKey;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,12 +12,12 @@ public class TokenContract {
     private String name = null;
     private String symbol = null;
     private double TotalSupply = 0;
-    private PublicKey owner = null;
+    private Address owner = null;
     private Map<PublicKey, Double> balances = new HashMap<>();
     private double balanceOf = 0;
 
     public TokenContract(Address address) {
-        this.owner = address.getPK();
+        this.owner = address;
     }
 
     public String getName() {
@@ -27,7 +28,7 @@ public class TokenContract {
         return this.symbol;
     }
 
-    public PublicKey getOwner() {
+    public Address getOwner() {
         return owner;
     }
 
@@ -68,12 +69,7 @@ public class TokenContract {
     }
 
     public int numOwners() {
-        //return getBalances().size;
-        int numOwners = 0;
-        for (PublicKey key : getBalances().keySet()) {
-            numOwners++;
-        }
-        return numOwners;
+        return getBalances().size();
     }
 
     public double balanceOf(PublicKey owner) {
@@ -88,19 +84,14 @@ public class TokenContract {
     }
 
     public void transfer(PublicKey recipient, double units) {
-        if (units <= TotalSupply) {
-            for (Map.Entry<PublicKey, Double> ownerSupply : getBalances().entrySet()) {
-                if (ownerSupply.getKey() == getOwner()) {
-                    ownerSupply.setValue(ownerSupply.getValue() - units);
-                }
-                if (ownerSupply.getKey() == recipient) {
-                    ownerSupply.setValue(ownerSupply.getValue() + units);
-                } else {
-                    //BUG TODO
-                    getBalances().put(recipient, units);
-                }
-            }
-        }
+
+       try{
+           require(units < getBalances().get(getOwner().getPK()));
+           getBalances().put(recipient,balanceOf(recipient)+units);
+           getBalances().replace(getOwner().getPK(),balanceOf(getOwner().getPK())-units);
+       }catch (Exception sinEntradas){
+
+       }
     }
 
     public void transfer(PublicKey sender, PublicKey recipient, double units) {
@@ -117,7 +108,13 @@ public class TokenContract {
         }*/
     }
 
-    public void require(Boolean holds) throws Exception{
-        //TODO
+    public void require(Boolean condicion) throws Exception{
+
+        if(!condicion){
+            Exception sinEntradas = new Exception();
+            throw sinEntradas;
+        }else {
+
+        }
     }
 }
