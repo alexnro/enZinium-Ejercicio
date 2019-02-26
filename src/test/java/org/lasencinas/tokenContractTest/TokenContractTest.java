@@ -26,7 +26,7 @@ public class TokenContractTest {
     public void TokenContractTest() {
 
         assertNotNull(token.getOwner());
-        assertEquals(token.getOwner(), rick.getPK());
+        assertEquals(token.getOwner().getPK(), rick.getPK());
     }
 
     @Test
@@ -47,7 +47,7 @@ public class TokenContractTest {
         token.addOwner(morty.getPK(), 500d);
 
         assertEquals(1, token.getBalances().size());
-        assertEquals(token.getOwner(), rick.getPK());
+        assertEquals(token.getOwner().getPK(), rick.getPK());
         assertNotEquals(token.totalSupply(), 500d);
         assertEquals(token.numOwners(), 1);
     }
