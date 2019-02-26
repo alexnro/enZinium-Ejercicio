@@ -87,25 +87,22 @@ public class TokenContract {
 
        try{
            require(units < getBalances().get(getOwner().getPK()));
-           getBalances().put(recipient,balanceOf(recipient)+units);
-           getBalances().replace(getOwner().getPK(),balanceOf(getOwner().getPK())-units);
+           getBalances().put(recipient, balanceOf(recipient) + units);
+           getBalances().replace(getOwner().getPK(), balanceOf(getOwner().getPK()) - units);
        }catch (Exception sinEntradas){
 
        }
     }
 
     public void transfer(PublicKey sender, PublicKey recipient, double units) {
-        /*Exception in thread "main" java.util.ConcurrentModificationException
-        for (Map.Entry<PublicKey, Double> ownerSupply : balances.entrySet()) {
-            if (ownerSupply.getKey() == sender) {
-                ownerSupply.setValue(ownerSupply.getValue() - units);
-            }
-            if (ownerSupply.getKey() == recipient) {
-                ownerSupply.setValue(ownerSupply.getValue() + units);
-            } else {
-                balances.put(recipient, units);
-            }
-        }*/
+
+        try {
+            require(units < getBalances().get(sender));
+            getBalances().put(recipient, balanceOf(recipient) + units);
+            getBalances().replace(sender, balanceOf(sender) - units);
+        } catch (Exception sinEntradas) {
+
+        }
     }
 
     public void require(Boolean condicion) throws Exception{
