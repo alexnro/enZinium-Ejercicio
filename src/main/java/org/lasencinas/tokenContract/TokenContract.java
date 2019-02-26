@@ -57,8 +57,8 @@ public class TokenContract {
     }
 
     public void addOwner(PublicKey PK, double units) {
-        if (balances.isEmpty()) {
-            balances.put(PK, units);
+        if (getBalances().isEmpty()) {
+            getBalances().put(PK, units);
         }
     }
 
@@ -68,7 +68,7 @@ public class TokenContract {
 
     public int numOwners() {
         int numOwners = 0;
-        for (PublicKey key : balances.keySet()) {
+        for (PublicKey key : getBalances().keySet()) {
             numOwners++;
         }
         return numOwners;
@@ -76,7 +76,7 @@ public class TokenContract {
 
     public double balanceOf(PublicKey owner) {
         double balanceOf = 0;
-        for (Map.Entry<PublicKey, Double> ownerSupply : balances.entrySet()) {
+        for (Map.Entry<PublicKey, Double> ownerSupply : getBalances().entrySet()) {
             if (ownerSupply.getKey() == owner) {
                 balanceOf = ownerSupply.getValue();
             }
@@ -86,14 +86,15 @@ public class TokenContract {
 
     public void transfer(PublicKey recipient, double units) {
         if (units <= TotalSupply) {
-            for (Map.Entry<PublicKey, Double> ownerSupply : balances.entrySet()) {
+            for (Map.Entry<PublicKey, Double> ownerSupply : getBalances().entrySet()) {
                 if (ownerSupply.getKey() == getOwner()) {
                     ownerSupply.setValue(ownerSupply.getValue() - units);
                 }
                 if (ownerSupply.getKey() == recipient) {
                     ownerSupply.setValue(ownerSupply.getValue() + units);
                 } else {
-                    balances.put(recipient, units);
+                    //BUG TODO
+                    getBalances().put(recipient, units);
                 }
             }
         }
