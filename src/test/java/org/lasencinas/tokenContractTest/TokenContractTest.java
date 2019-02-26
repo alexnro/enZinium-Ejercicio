@@ -61,6 +61,15 @@ public class TokenContractTest {
         assertEquals(0, token.balanceOf(morty.getPK()), 0);
     }
 
+    @Test
+    public void transferTest() {
+        token.addOwner(rick.getPK(), 100);
+        token.transfer(morty.getPK(), 2);
+
+        assertEquals(98, token.balanceOf(rick.getPK()), 0);
+        assertEquals(2, token.balanceOf(morty.getPK()), 0);
+    }
+
 //    @Test
 //    public void payable_test() {
 //
