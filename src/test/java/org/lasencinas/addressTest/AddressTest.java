@@ -6,8 +6,7 @@ import org.lasencinas.address.Address;
 
 import java.security.PublicKey;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class AddressTest {
 
@@ -16,14 +15,23 @@ public class AddressTest {
     @Before
     public void init() {
         address = new Address();
+        address.generateKeyPair();
     }
 
     @Test
     public void generate_key_pair_test() {
         assertNotNull(address);
-        address.generateKeyPair();
         assertNotNull(address.getPK());
         assertNotNull(address.getSK());
+    }
+
+    @Test
+    public void addEZITest() {
+        address.addEZI(50);
+        assertEquals(50, address.getBalance(), 0);
+
+        address.addEZI(2);
+        assertEquals(52, address.getBalance(), 0);
     }
 
 //    @Test
