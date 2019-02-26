@@ -57,6 +57,7 @@ public class TokenContract {
     }
 
     public void addOwner(PublicKey PK, double units) {
+        //getBalances().putIfAbsent(PK, units);
         if (getBalances().isEmpty()) {
             getBalances().put(PK, units);
         }
@@ -67,6 +68,7 @@ public class TokenContract {
     }
 
     public int numOwners() {
+        //return getBalances().size;
         int numOwners = 0;
         for (PublicKey key : getBalances().keySet()) {
             numOwners++;
@@ -75,6 +77,7 @@ public class TokenContract {
     }
 
     public double balanceOf(PublicKey owner) {
+        //return getBalance().get(owner);
         double balanceOf = 0;
         for (Map.Entry<PublicKey, Double> ownerSupply : getBalances().entrySet()) {
             if (ownerSupply.getKey() == owner) {
