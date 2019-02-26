@@ -125,4 +125,16 @@ public class TokenContract {
             }
         }
     }
+
+    public int totalTokensSold() {
+        int totalTokens = 0;
+        for (Map.Entry<PublicKey, Double> numberTokens : getBalances().entrySet()) {
+            if (getOwner().getPK().equals(numberTokens.getKey())) {
+
+            } else {
+                totalTokens += numberTokens.getValue();
+            }
+        }
+        return totalTokens;
+    }
 }
