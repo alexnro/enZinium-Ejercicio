@@ -114,4 +114,15 @@ public class TokenContract {
 
         }
     }
+
+    public void owners() {
+        for (Map.Entry<PublicKey, Double> tokenOwner : getBalances().entrySet()) {
+            if (getOwner().getPK().equals(tokenOwner.getKey())) {
+
+            } else {
+                System.out.println("Owner: " + tokenOwner.getKey().hashCode() + " " +
+                        tokenOwner.getValue() + " " + symbol());
+            }
+        }
+    }
 }
