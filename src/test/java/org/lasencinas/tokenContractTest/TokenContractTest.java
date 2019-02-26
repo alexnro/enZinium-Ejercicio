@@ -23,6 +23,8 @@ public class TokenContractTest {
         jen = new Address();
         jen.generateKeyPair();
         token = new TokenContract(rick);
+
+        token.addOwner(rick.getPK(), 100);
     }
 
     @Test
@@ -44,7 +46,7 @@ public class TokenContractTest {
     }
 
     @Test
-    public void ownerTest() {
+    public void addOwnerTest() {
         morty.generateKeyPair();
         token.addOwner(rick.getPK(), token.totalSupply());
         token.addOwner(morty.getPK(), 500d);
@@ -57,7 +59,6 @@ public class TokenContractTest {
 
     @Test
     public void balanceOfTest() {
-        token.addOwner(rick.getPK(), 100);
         token.addOwner(morty.getPK(), 200);
 
         assertEquals(100, token.balanceOf(rick.getPK()), 0);
@@ -66,7 +67,6 @@ public class TokenContractTest {
 
     @Test
     public void transferTest() {
-        token.addOwner(rick.getPK(), 100);
         token.transfer(morty.getPK(), 2);
 
         assertEquals(98, token.balanceOf(rick.getPK()), 0);
