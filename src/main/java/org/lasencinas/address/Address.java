@@ -47,4 +47,8 @@ public class Address {
                           "\nBalance = " + getBalance() + " " + getSymbol();
         return toString;
     }
+
+    public void addEZI(double EZI) {
+        this.balance += EZI;
+    }
 }
