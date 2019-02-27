@@ -14,7 +14,7 @@ public class TokenContract {
     private double TotalSupply = 0;
     private Address owner = null;
     private Map<PublicKey, Double> balances = new HashMap<>();
-    private double balanceOf = 0;
+    private int tokenCost = 0;
 
     public TokenContract(Address address) {
         this.owner = address;
@@ -34,6 +34,10 @@ public class TokenContract {
 
     public Map<PublicKey, Double> getBalances() {
         return this.balances;
+    }
+
+    public int getTokenCost() {
+        return this.tokenCost;
     }
 
     public void setName(String name) {
@@ -85,11 +89,11 @@ public class TokenContract {
 
     public void transfer(PublicKey recipient, double units) {
 
-       try{
+       try {
            require(units < getBalances().get(getOwner().getPK()));
            getBalances().put(recipient, balanceOf(recipient) + units);
            getBalances().replace(getOwner().getPK(), balanceOf(getOwner().getPK()) - units);
-       }catch (Exception sinEntradas){
+       } catch (Exception sinEntradas){
 
        }
     }
@@ -126,8 +130,8 @@ public class TokenContract {
         }
     }
 
-    public int totalTokensSold() {
-        int totalTokens = 0;
+    public double totalTokensSold() {
+        double totalTokens = 0;
         for (Map.Entry<PublicKey, Double> numberTokens : getBalances().entrySet()) {
             if (getOwner().getPK().equals(numberTokens.getKey())) {
 
@@ -136,5 +140,9 @@ public class TokenContract {
             }
         }
         return totalTokens;
+    }
+
+    public void payable(PublicKey recipient, double EZI) {
+        //TODO
     }
 }

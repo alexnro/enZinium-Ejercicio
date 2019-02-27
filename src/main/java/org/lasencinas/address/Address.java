@@ -1,6 +1,7 @@
 package org.lasencinas.address;
 
 import org.lasencinas.genSig.GenSig;
+import org.lasencinas.tokenContract.TokenContract;
 
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -50,5 +51,13 @@ public class Address {
 
     public void addEZI(double EZI) {
         this.balance += EZI;
+    }
+
+    public void send(TokenContract contract, double EZI) {
+        //TODO
+    }
+
+    public void transferEZI(PublicKey address, double EZI) {
+        //TODO
     }
 }
