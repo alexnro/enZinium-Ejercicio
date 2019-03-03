@@ -323,22 +323,22 @@ public class App {
                 "==============="        );
         System.out.println(morty.toString());
 
-//        // verifica que Morty no tiene dinero para comprar una entrada
-//        morty.send(ricknillos, 3d);
-//
-//        System.out.println("Morty no paga suficientes EZI por una entrada" +
-//                "\n => sigue teniendo 5 entradas: "
-//                + ricknillos.balanceOf(morty.getPK())
-//                + " "
-//                + ricknillos.symbol());
-//
-//        System.out.println("\n" + "y Rick no recibe EZI => sigue con 10: "
-//                + rick.getBalance()
-//                + "\n");
-//
-//        System.out.println("y Rick sigue con sus 94 entradas: "
-//                + ricknillos.balanceOf(rick.getPK())
-//                + " "
-//                + ricknillos.symbol());
+        // verifica que Morty no tiene dinero para comprar una entrada
+        morty.send(ricknillos, 3d);
+
+        System.out.println("Morty no paga suficientes EZI por una entrada" +
+                "\n => sigue teniendo 5 entradas: "
+                + ricknillos.balanceOf(morty.getPK())
+                + " "
+                + ricknillos.symbol());
+
+        System.out.println("\n" + "y Rick no recibe EZI => sigue con 10: "
+                + rick.getBalance()
+                + "\n");
+
+        System.out.println("y Rick sigue con sus 94 entradas: "
+                + ricknillos.balanceOf(rick.getPK())
+                + " "
+                + ricknillos.symbol());
     }
 }

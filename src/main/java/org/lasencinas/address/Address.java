@@ -65,11 +65,15 @@ public class Address {
     }
 
     public void send(TokenContract contract, double EZI) {
-        contract.payable(this.getPK(), EZI);
-        this.setBalance(-EZI);
+        if (this.getBalance() > 0 && EZI > contract.getTokenCost()) {
+            contract.payable(this.getPK(), EZI);
+            this.addEZI(-EZI);
+        } else {
+            this.addEZI(EZI);
+        }
     }
 
     public void transferEZI(double EZI) {
-        this.setBalance(EZI);
+        this.addEZI(EZI);
     }
 }

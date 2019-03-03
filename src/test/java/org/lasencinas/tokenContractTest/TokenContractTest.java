@@ -80,29 +80,23 @@ public class TokenContractTest {
     @Test
     public void totalTokenSoldTest() {
         token.transfer(morty.getPK(), 30);
-        assertEquals(30, token.totalTokensSold());
+        assertEquals(30, token.totalTokensSold(), 0);
 
         token.transfer(jen.getPK(), 25);
-        assertEquals(55, token.totalTokensSold());
+        assertEquals(55, token.totalTokensSold(), 0);
     }
 
-//    @Test
-//    public void payable_test() {
-//
-//        Address rick = new Address();
-//        rick.generateKeyPair();
-//        TokenContract ricknillos = new TokenContract(rick);
-//        ricknillos.addOwner(rick.getPK(), 100d);
-//        Address morty = new Address();
-//        morty.generateKeyPair();
-//
-//        morty.addEZI(20d);
-//
-//        // verifico la transferencia de entradas
-//        ricknillos.payable(morty.getPK(), morty.getBalance());
-//        assertEquals(4d, ricknillos.balanceOf(morty.getPK()), 0d);
-//
-//        // verifico la trasnferencia de EZI
-//        assertEquals(20d, ricknillos.owner().getBalance(), 0d);
-//    }
+    @Test
+    public void payable_test() {
+
+        morty.addEZI(20d);
+        assertEquals(20, morty.getBalance(), 0);
+
+        // verifico la transferencia de entradas
+        token.payable(morty.getPK(), morty.getBalance());
+        assertEquals(4d, token.balanceOf(morty.getPK()), 0d);
+
+        // verifico la trasnferencia de EZI
+        assertEquals(20d, token.getOwner().getBalance(), 0d);
+    }
 }

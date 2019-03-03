@@ -34,17 +34,17 @@ public class AddressTest {
         assertEquals(52, address.getBalance(), 0);
     }
 
-//    @Test
-//    public void transferEZI_test() {
-//
-//        Address rick = new Address();
-//        rick.generateKeyPair();
-//
-//        rick.addEZI(20d);
-//
-//        rick.transferEZI(20d);
-//
-//        assertEquals(40d, rick.getBalance(), 0d);
-//    }
-//
+    @Test
+    public void transferEZI_test() {
+
+        Address rick = new Address();
+        rick.generateKeyPair();
+
+        rick.addEZI(20d);
+
+        rick.transferEZI(20d);
+
+        assertEquals(40d, rick.getBalance(), 0d);
+    }
+
 }

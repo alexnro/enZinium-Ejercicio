@@ -74,7 +74,6 @@ public class TokenContract {
     }
 
     public void addOwner(PublicKey PK, double units) {
-        //getBalances().putIfAbsent(PK, units);
         if (getBalances().isEmpty()) {
             getBalances().put(PK, units);
         }
@@ -85,7 +84,6 @@ public class TokenContract {
     }
 
     public double balanceOf(PublicKey owner) {
-        //return getBalance().get(owner);
         double balanceOf = 0;
         for (Map.Entry<PublicKey, Double> ownerSupply : getBalances().entrySet()) {
             if (ownerSupply.getKey() == owner) {
@@ -99,8 +97,8 @@ public class TokenContract {
 
        try {
            require(units < getBalances().get(getOwner().getPK()));
+           this.getBalances().compute(this.getOwner().getPK(), (pk, tokens) -> tokens - units);
            getBalances().put(recipient, balanceOf(recipient) + units);
-           getBalances().replace(getOwner().getPK(), balanceOf(getOwner().getPK()) - units);
        } catch (Exception sinEntradas){
 
        }
