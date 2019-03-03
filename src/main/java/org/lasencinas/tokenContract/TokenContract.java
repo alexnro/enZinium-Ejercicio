@@ -15,6 +15,7 @@ public class TokenContract {
     private double TotalSupply = 0;
     private Address owner = null;
     private Map<PublicKey, Double> balances = new HashMap<>();
+    private double tokenCost = 5;
 
     /*------------- Constructor -------------------*/
 
@@ -42,6 +43,10 @@ public class TokenContract {
 
     public double totalSupply() {
         return this.TotalSupply;
+    }
+
+    public double getTokenCost() {
+        return tokenCost;
     }
 
     /*--------------- Setters -----------------*/
@@ -146,6 +151,9 @@ public class TokenContract {
     }
 
     public void payable(PublicKey recipient, double EZI) {
-        //TODO
+        double tokens = EZI / this.getTokenCost();
+        Math.floor(tokens);
+        this.transfer(this.getOwner().getPK(), tokens);
+        this.getOwner().transferEZI(EZI);
     }
 }

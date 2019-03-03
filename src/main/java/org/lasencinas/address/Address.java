@@ -8,10 +8,14 @@ import java.security.PublicKey;
 
 public class Address {
 
+    /*-------------- Atributos --------------------*/
+
     private PublicKey PK = null;
     private PrivateKey SK = null;
     private double balance = 0;
     private String symbol = "EZI";
+
+    /*-------------- Getters --------------------*/
 
     public PublicKey getPK() {
         return this.PK;
@@ -29,10 +33,7 @@ public class Address {
         return symbol;
     }
 
-    public void generateKeyPair() {
-        setPK(GenSig.generateKeyPair().getPublic());
-        setSK(GenSig.generateKeyPair().getPrivate());
-    }
+    /*--------------- Setters -----------------*/
 
     public void setPK(PublicKey PK) {
         this.PK = PK;
@@ -42,6 +43,17 @@ public class Address {
         this.SK = SK;
     }
 
+    public void setBalance(double balance) {
+        this.balance += balance;
+    }
+
+    /*----------------- Métodos ------------------*/
+
+    public void generateKeyPair() {
+        setPK(GenSig.generateKeyPair().getPublic());
+        setSK(GenSig.generateKeyPair().getPrivate());
+    }
+
     @Override
     public String toString() {
         return  "\nPK = " + getPK().hashCode() +
@@ -49,14 +61,15 @@ public class Address {
     }
 
     public void addEZI(double EZI) {
-        this.balance += EZI;
+        this.setBalance(EZI);
     }
 
     public void send(TokenContract contract, double EZI) {
-        //TODO
+        contract.payable(this.getPK(), EZI);
+        this.setBalance(-EZI);
     }
 
-    public void transferEZI(PublicKey address, double EZI) {
-        //TODO
+    public void transferEZI(double EZI) {
+        this.setBalance(EZI);
     }
 }
