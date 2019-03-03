@@ -44,9 +44,8 @@ public class Address {
 
     @Override
     public String toString() {
-        String toString = "\nPK = " + getPK().hashCode() +
+        return  "\nPK = " + getPK().hashCode() +
                           "\nBalance = " + getBalance() + " " + getSymbol();
-        return toString;
     }
 
     public void addEZI(double EZI) {
