@@ -2,7 +2,6 @@ package org.lasencinas.tokenContract;
 
 import org.lasencinas.address.Address;
 
-import java.lang.reflect.Executable;
 import java.security.PublicKey;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,11 +53,10 @@ public class TokenContract {
 
     @Override
     public String toString() {
-        String toString = "\nname = " + getName() +
+        return  "\nname = " + getName() +
                           "\nsymbol = " + symbol() +
                           "\ntotalSupply = " + totalSupply() +
                           "\nowner PK = " + getOwner().hashCode();
-        return toString;
     }
 
     public void addOwner(PublicKey PK, double units) {
