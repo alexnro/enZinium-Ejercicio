@@ -8,16 +8,21 @@ import java.util.Map;
 
 public class TokenContract {
 
+    /*-------------- Atributos --------------------*/
+
     private String name = null;
     private String symbol = null;
     private double TotalSupply = 0;
     private Address owner = null;
     private Map<PublicKey, Double> balances = new HashMap<>();
-    private int tokenCost = 0;
+
+    /*------------- Constructor -------------------*/
 
     public TokenContract(Address address) {
         this.owner = address;
     }
+
+    /*-------------- Getters --------------------*/
 
     public String getName() {
         return this.name;
@@ -35,9 +40,11 @@ public class TokenContract {
         return this.balances;
     }
 
-    public int getTokenCost() {
-        return this.tokenCost;
+    public double totalSupply() {
+        return this.TotalSupply;
     }
+
+    /*--------------- Setters -----------------*/
 
     public void setName(String name) {
         this.name = name;
@@ -50,6 +57,8 @@ public class TokenContract {
     public void setTotalSupply(double totalSupply) {
         TotalSupply = totalSupply;
     }
+
+    /*----------------- Métodos ------------------*/
 
     @Override
     public String toString() {
@@ -64,10 +73,6 @@ public class TokenContract {
         if (getBalances().isEmpty()) {
             getBalances().put(PK, units);
         }
-    }
-
-    public double totalSupply() {
-        return this.TotalSupply;
     }
 
     public int numOwners() {
