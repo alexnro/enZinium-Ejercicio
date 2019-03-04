@@ -110,16 +110,15 @@ public class TokenContract {
             require(units < getBalances().get(sender));
             getBalances().put(recipient, balanceOf(recipient) + units);
             getBalances().replace(sender, balanceOf(sender) - units);
-        } catch (Exception sinEntradas) {
+        } catch (Exception noEntries) {
 
         }
     }
 
-    public void require(Boolean condicion) throws Exception{
+    public void require(Boolean condition) throws Exception{
 
-        if(!condicion){
-            Exception sinEntradas = new Exception();
-            throw sinEntradas;
+        if(!condition){
+            throw new Exception();
         }else {
 
         }
@@ -149,9 +148,14 @@ public class TokenContract {
     }
 
     public void payable(PublicKey recipient, double EZI) {
-        double tokens = EZI / this.getTokenCost();
-        Math.floor(tokens);
-        this.transfer(this.getOwner().getPK(), tokens);
-        this.getOwner().transferEZI(EZI);
+        try {
+            require(EZI >= this.getTokenCost());
+            double tokens = EZI / this.getTokenCost();
+            Math.floor(tokens);
+            transfer(recipient, tokens);
+            this.getOwner().transferEZI(EZI);
+        } catch (Exception noEZI) {
+
+        }
     }
 }
